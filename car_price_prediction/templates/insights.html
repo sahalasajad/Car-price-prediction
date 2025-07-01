@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Model Insights</title>
+  <style>
+    body {
+      font-family: 'Manrope', sans-serif;
+      padding: 40px;
+      background: #f9fbff;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      color: #1e3a8a;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 40px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    a {
+      text-decoration: none;
+      color: #2563eb;
+      font-weight: bold;
+    }
+    ul {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Model Insights</h1>
+    {% if metrics %}
+  <div style="margin-bottom: 20px;">
+    <h3>📏 Model Evaluation Metrics:</h3>
+    <ul>
+      {% for metric in metrics %}
+        <li>{{ metric }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+
+    <h3>📈 Actual vs Predicted</h3>
+    <img src="/static/actual_vs_predicted.png" alt="Actual vs Predicted">
+
+    <h3>📌 Summary:</h3>
+    <ul>
+      <li>Most predictive features include: engine-size, horsepower, and curb-weight.</li>
+      <li>Model used: Random Forest Regressor.</li>
+      <li>Evaluation includes: MAE, RMSE, and R² Score.</li>
+      <li>All predictions are based on normalized and preprocessed inputs.</li>
+    </ul>
+
+    <p><a href="/">&larr; Back to Prediction</a></p>
+  </div>
+</body>
+</html>

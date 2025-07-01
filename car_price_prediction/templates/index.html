@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Price Estimator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Manrope', sans-serif;
+      background: linear-gradient(135deg, #f0f4ff, #e6f0fa);
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 60px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #1e3a8a;
+    }
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .form-group {
+      flex: 1 1 calc(50% - 12px);
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    input, select {
+      padding: 12px 14px;
+      font-size: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      background: #f9fafb;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+    .full-width {
+      flex: 1 1 100%;
+      text-align: center;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+    }
+    button:hover {
+      background: #1e40af;
+    }
+    .result {
+      margin-top: 40px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #059669;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Car Price Estimator</h1>
+    <form action="/predict" method="POST">
+      {% set f = form_data %}
+      <div class="form-group">
+        <label>Make:</label>
+        <input type="text" name="make" required value="{{ f.get('make', '') }}">
+      </div>
+      <div class="form-group">
+        <label>Aspiration:</label>
+        <select name="aspiration">
+          <option value="std" {% if f.get('aspiration') == 'std' %}selected{% endif %}>Standard</option>
+          <option value="turbo" {% if f.get('aspiration') == 'turbo' %}selected{% endif %}>Turbo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Body Style:</label>
+        <select name="body_style">
+          <option value="sedan" {% if f.get('body-style') == 'sedan' %}selected{% endif %}>Sedan</option>
+          <option value="hatchback" {% if f.get('body-style') == 'hatchback' %}selected{% endif %}>Hatchback</option>
+          <option value="wagon" {% if f.get('body-style') == 'wagon' %}selected{% endif %}>Wagon</option>
+          <option value="hardtop" {% if f.get('body-style') == 'hardtop' %}selected{% endif %}>Hardtop</option>
+          <option value="convertible" {% if f.get('body-style') == 'convertible' %}selected{% endif %}>Convertible</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Drive Wheels:</label>
+        <select name="drive_wheels">
+          <option value="fwd" {% if f.get('drive-wheels') == 'fwd' %}selected{% endif %}>Front-Wheel Drive</option>
+          <option value="rwd" {% if f.get('drive-wheels') == 'rwd' %}selected{% endif %}>Rear-Wheel Drive</option>
+          <option value="4wd" {% if f.get('drive-wheels') == '4wd' %}selected{% endif %}>4-Wheel Drive</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Engine Size:</label>
+        <input type="number" name="engine_size" step="any" required value="{{ f.get('engine-size', '') }}">
+      </div>
+      <div class="form-group">
+        <label>Horsepower:</label>
+        <input type="number" name="horsepower" step="any" required value="{{ f.get('horsepower', '') }}">
+      </div>
+      <div class="form-group">
+        <label>City MPG:</label>
+        <input type="number" name="city_mpg" step="any" required value="{{ f.get('city-mpg', '') }}">
+      </div>
+      <div class="form-group">
+        <label>Highway MPG:</label>
+        <input type="number" name="highway_mpg" step="any" required value="{{ f.get('highway-mpg', '') }}">
+      </div>
+      <div class="form-group">
+        <label>Curb Weight:</label>
+        <input type="number" name="curb_weight" step="any" required value="{{ f.get('curb-weight', '') }}">
+      </div>
+      <div class="form-group">
+        <label>Compression Ratio:</label>
+        <input type="number" name="compression_ratio" step="any" required value="{{ f.get('compression-ratio', '') }}">
+      </div>
+      <div class="full-width">
+        <button type="submit">Predict Price</button>
+      </div>
+    </form>
+    {% if prediction_text %}
+      <div class="result">
+        {{ prediction_text }}
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
+
