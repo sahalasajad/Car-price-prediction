@@ -11,7 +11,7 @@ model = joblib.load("model.pkl")
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", form_data={})
 
 @app.route("/predict", methods=["POST"])
 def predict():
