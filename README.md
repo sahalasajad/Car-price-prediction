@@ -35,7 +35,7 @@ This project predicts the price of a car based on its specifications using a tra
    ```
 
 ## 🔗 Live Demo
-[Coming soon – deploying to Render or Replit]
+https://car-price-prediction-qts6.onrender.com
 
 ## 📁 Folder Structure
 
